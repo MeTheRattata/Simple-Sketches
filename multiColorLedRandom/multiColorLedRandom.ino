@@ -40,4 +40,5 @@ void loop() {
   analogWrite(RED_PIN, redIntensity);
   analogWrite(BLUE_PIN, blueIntensity);
   analogWrite(GREEN_PIN, greenIntensity);
+  delay(300);
 }
