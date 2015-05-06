@@ -6,25 +6,33 @@ void setup() {
 }
 
 void loop() {
-   int num = 128;
+   int num = decNum;
    int subtrahend = 128; //subtrahend = the number being subtracted
    int pin = 0;
-  if(decNum > 255 || decNum < 0)
+  if(decNum > 256 || decNum < 0)
     errorFlash();
-  else
-    while(num > 0){
-      if((num - subtrahend) > 0){
+  else{
+    for(int i = 0; i < 8; i++){
+      if(num - subtrahend >= (num - 1) / 2){
         num -= subtrahend;
-        digitalWrite(ledPins[pin], HIGH)
+        subtrahend /= 2;
+        digitalWrite(ledPins[i], HIGH);
       }
-      subtrahend = subtrahend / 2;
-      pin++;
+      else
+        digitalWrite(ledPins[i], LOW);
     }
+    if(num == 1)
+      digitalWrite(ledPins[7], HIGH);
+  }
 }
 
 void errorFlash(){
-  for(int pin = 0; pin < 8; pin++)
+  for(int pin = 0; pin < 8; pin++){
     digitalWrite(ledPins[pin], HIGH);
-  for(int pin = 0; pin < 8; pin++)
+    delay(300);
+  }
+  for(int pin = 0; pin < 8; pin++){
     digitalWrite(ledPins[pin], LOW);
+    delay(300);
+  }
 }
